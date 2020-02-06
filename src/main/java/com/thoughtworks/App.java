@@ -23,6 +23,7 @@ public class App {
     String[] itemIds = getItemIds();
     double[] itemPrices = getItemPrices();
     int[] selectedItemsIndex = getSelectedItemsIndex(itemIds, selectedItems);
+    int[] selectedItemsNum = getSelectedItemNum(selectedItems);
 
     return selectedItems;
   }
@@ -37,6 +38,15 @@ public class App {
       }
     }
     return selectedItemsIndex;
+  }
+
+  public static int[] getSelectedItemNum(String selectedItems) {
+    String[] selectedItemString = selectedItems.split(",");
+    int[] selectedItemsNum = new int[selectedItemString.length];
+    for(int i = 0; i < selectedItemString.length; i++) {
+      selectedItemsNum[i] = Integer.parseInt(selectedItemString[i].split("x")[1].trim());
+    }
+    return selectedItemsNum;
   }
 
   /**

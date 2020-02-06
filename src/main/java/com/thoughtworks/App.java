@@ -27,6 +27,7 @@ public class App {
     double totalPrice = getTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices);
     double overDescTotalPrice = getOverDescTotalPrice(totalPrice);
     double halfTotalPrice = getHalfTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices, itemIds);
+    selectedItems = getBasicInfo(selectedItemsIndex, selectedItemsNum);
 
     return selectedItems;
   }
@@ -78,6 +79,17 @@ public class App {
       }
     }
     return totalPrice;
+  }
+
+  public static String getBasicInfo(int[] selectedItemsIndex, int[] selectedItemsNum) {
+    String[] itemNames = getItemNames();
+    double[] itemPrices = getItemPrices();
+    String basicInfo = "============= 订餐明细 =============\n";
+    for (int i = 0; i < selectedItemsIndex.length; i++) {
+      int index = selectedItemsIndex[i];
+      basicInfo += itemNames[index] + " x " + selectedItemsNum[i] + " = " + (int)(selectedItemsNum[i] * itemPrices[index]) + "元\n";
+    }
+    return basicInfo;
   }
 
   /**

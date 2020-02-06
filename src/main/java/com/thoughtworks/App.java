@@ -24,6 +24,7 @@ public class App {
     double[] itemPrices = getItemPrices();
     int[] selectedItemsIndex = getSelectedItemsIndex(itemIds, selectedItems);
     int[] selectedItemsNum = getSelectedItemNum(selectedItems);
+    double totalPrice = getTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices);
 
     return selectedItems;
   }
@@ -47,6 +48,14 @@ public class App {
       selectedItemsNum[i] = Integer.parseInt(selectedItemString[i].split("x")[1].trim());
     }
     return selectedItemsNum;
+  }
+
+  public static double getTotalPrice(int[] selectedItemsIndex, int[] selectedItemsNum, double[] itemPrices) {
+    int totalPrice = 0;
+    for(int i = 0; i < selectedItemsIndex.length; i++) {
+      totalPrice += selectedItemsNum[i] * itemPrices[selectedItemsIndex[i]];
+    }
+    return totalPrice;
   }
 
   /**

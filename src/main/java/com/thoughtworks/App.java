@@ -26,6 +26,7 @@ public class App {
     int[] selectedItemsNum = getSelectedItemNum(selectedItems);
     double totalPrice = getTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices);
     double overDescTotalPrice = getOverDescTotalPrice(totalPrice);
+    double halfTotalPrice = getHalfTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices, itemIds);
 
     return selectedItems;
   }
@@ -62,6 +63,19 @@ public class App {
   public static double getOverDescTotalPrice(double totalPrice) {
     if(totalPrice >= 30) {
       totalPrice -= 6;
+    }
+    return totalPrice;
+  }
+
+  public static double getHalfTotalPrice(int[] selectedItemsIndex, int[] selectedItemsNum, double[] itemPrices, String[] itemIds) {
+    String[] halfPriceIds = getHalfPriceIds();
+    int totalPrice = 0;
+    for(int i = 0; i < selectedItemsIndex.length; i++) {
+      if(Arrays.asList(halfPriceIds).contains(itemIds[selectedItemsIndex[i]]) ) {
+        totalPrice += selectedItemsNum[i] * itemPrices[selectedItemsIndex[i]] / 2;
+      } else {
+        totalPrice += selectedItemsNum[i] * itemPrices[selectedItemsIndex[i]];
+      }
     }
     return totalPrice;
   }

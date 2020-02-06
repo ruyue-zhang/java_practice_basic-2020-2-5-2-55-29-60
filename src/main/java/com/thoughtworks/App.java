@@ -1,5 +1,6 @@
 package com.thoughtworks;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -19,7 +20,23 @@ public class App {
    */
   public static String bestCharge(String selectedItems) {
     // 此处补全代码
+    String[] itemIds = getItemIds();
+    double[] itemPrices = getItemPrices();
+    int[] selectedItemsIndex = getSelectedItemsIndex(itemIds, selectedItems);
+
     return selectedItems;
+  }
+
+  public static int[] getSelectedItemsIndex(String[] itemIds, String selectedItems) {
+    String[] selectedItemString = selectedItems.split(",");
+    int index = 0;
+    int[] selectedItemsIndex = new int[selectedItemString.length];
+    for(int i = 0; i < itemIds.length; i++) {
+      if(selectedItems.indexOf(itemIds[i]) != -1) {
+        selectedItemsIndex[index++] = i;
+      }
+    }
+    return selectedItemsIndex;
   }
 
   /**

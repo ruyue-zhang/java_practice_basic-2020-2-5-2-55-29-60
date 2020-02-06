@@ -25,6 +25,7 @@ public class App {
     int[] selectedItemsIndex = getSelectedItemsIndex(itemIds, selectedItems);
     int[] selectedItemsNum = getSelectedItemNum(selectedItems);
     double totalPrice = getTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices);
+    double overDescTotalPrice = getOverDescTotalPrice(totalPrice);
 
     return selectedItems;
   }
@@ -54,6 +55,13 @@ public class App {
     int totalPrice = 0;
     for(int i = 0; i < selectedItemsIndex.length; i++) {
       totalPrice += selectedItemsNum[i] * itemPrices[selectedItemsIndex[i]];
+    }
+    return totalPrice;
+  }
+
+  public static double getOverDescTotalPrice(double totalPrice) {
+    if(totalPrice >= 30) {
+      totalPrice -= 6;
     }
     return totalPrice;
   }

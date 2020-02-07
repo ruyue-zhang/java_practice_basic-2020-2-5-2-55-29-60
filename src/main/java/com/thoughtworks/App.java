@@ -28,7 +28,7 @@ public class App {
     double overDescTotalPrice = getOverDescTotalPrice(totalPrice);
     double halfTotalPrice = getHalfTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices, itemIds);
     selectedItems = getBasicInfo(selectedItemsIndex, selectedItemsNum);
-
+    String halfItemsName = getHalfItemsName(selectedItemsIndex, itemIds);
     return selectedItems;
   }
 
@@ -90,6 +90,22 @@ public class App {
       basicInfo += itemNames[index] + " x " + selectedItemsNum[i] + " = " + (int)(selectedItemsNum[i] * itemPrices[index]) + "元\n";
     }
     return basicInfo;
+  }
+
+  public static String getHalfItemsName(int[] selectedItemsIndex, String[] itemIds) {
+    String[] itemNames = getItemNames();
+    String[] halfPriceIds = getHalfPriceIds();
+    String halfItemsName = "";
+    for(int i = 0; i < selectedItemsIndex.length; i++) {
+      if(Arrays.asList(halfPriceIds).contains(itemIds[selectedItemsIndex[i]]) ) {
+        if(i == selectedItemsIndex.length - 1) {
+          halfItemsName += itemNames[i];
+        } else {
+          halfItemsName = halfItemsName + itemNames[i] + "，";
+        }
+      }
+    }
+    return halfItemsName;
   }
 
   /**

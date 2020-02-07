@@ -29,6 +29,7 @@ public class App {
     double halfTotalPrice = getHalfTotalPrice(selectedItemsIndex, selectedItemsNum, itemPrices, itemIds);
     selectedItems = getBasicInfo(selectedItemsIndex, selectedItemsNum);
     String halfItemsName = getHalfItemsName(selectedItemsIndex, itemIds);
+    selectedItems += chooseDiscountWay(totalPrice, overDescTotalPrice, halfTotalPrice, halfItemsName);
     return selectedItems;
   }
 
@@ -106,6 +107,27 @@ public class App {
       }
     }
     return halfItemsName;
+  }
+
+  public static String chooseDiscountWay(double totalPrice, double overDescTotalPrice, double halfTotalPrice ,String halfItemsName) {
+    String discountWay = "";
+    if(overDescTotalPrice <= halfTotalPrice) {
+      if(overDescTotalPrice == totalPrice) {
+        discountWay = "";
+      } else {
+        discountWay = "-----------------------------------\n"
+                + "使用优惠:\n"
+                + "满30减6元，省6元\n";
+      }
+    } else {
+      discountWay = "-----------------------------------\n"
+              + "使用优惠:\n"
+              + "指定菜品半价(" + halfItemsName + ")，省" + (int)(totalPrice - halfTotalPrice) + "元\n";
+    }
+    String printTotalPrice = "-----------------------------------\n"
+            + "总计：" + (int)(overDescTotalPrice <= halfTotalPrice ? overDescTotalPrice : halfTotalPrice) + "元\n"
+            + "===================================";
+    return discountWay + printTotalPrice;
   }
 
   /**

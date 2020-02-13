@@ -38,7 +38,7 @@ public class App {
     int index = 0;
     int[] selectedItemsIndex = new int[selectedItemString.length];
     for(int i = 0; i < itemIds.length; i++) {
-      if(selectedItems.indexOf(itemIds[i]) != -1) {
+      if(selectedItems.contains(itemIds[i])) {
         selectedItemsIndex[index++] = i;
       }
     }
@@ -85,28 +85,28 @@ public class App {
   public static String getBasicInfo(int[] selectedItemsIndex, int[] selectedItemsNum) {
     String[] itemNames = getItemNames();
     double[] itemPrices = getItemPrices();
-    String basicInfo = "============= 订餐明细 =============\n";
+    StringBuilder basicInfo = new StringBuilder("============= 订餐明细 =============\n");
     for (int i = 0; i < selectedItemsIndex.length; i++) {
       int index = selectedItemsIndex[i];
-      basicInfo += itemNames[index] + " x " + selectedItemsNum[i] + " = " + (int)(selectedItemsNum[i] * itemPrices[index]) + "元\n";
+      basicInfo.append(itemNames[index]).append(" x ").append(selectedItemsNum[i]).append(" = ").append((int) (selectedItemsNum[i] * itemPrices[index])).append("元\n");
     }
-    return basicInfo;
+    return basicInfo.toString();
   }
 
   public static String getHalfItemsName(int[] selectedItemsIndex, String[] itemIds) {
     String[] itemNames = getItemNames();
     String[] halfPriceIds = getHalfPriceIds();
-    String halfItemsName = "";
+    StringBuilder halfItemsName = new StringBuilder();
     for(int i = 0; i < selectedItemsIndex.length; i++) {
       if(Arrays.asList(halfPriceIds).contains(itemIds[selectedItemsIndex[i]]) ) {
         if(i == selectedItemsIndex.length - 1) {
-          halfItemsName += itemNames[i];
+          halfItemsName.append(itemNames[i]);
         } else {
-          halfItemsName = halfItemsName + itemNames[i] + "，";
+          halfItemsName.append(itemNames[i]).append("，");
         }
       }
     }
-    return halfItemsName;
+    return halfItemsName.toString();
   }
 
   public static String chooseDiscountWay(double totalPrice, double overDescTotalPrice, double halfTotalPrice ,String halfItemsName) {
@@ -125,7 +125,7 @@ public class App {
               + "指定菜品半价(" + halfItemsName + ")，省" + (int)(totalPrice - halfTotalPrice) + "元\n";
     }
     String printTotalPrice = "-----------------------------------\n"
-            + "总计：" + (int)(overDescTotalPrice <= halfTotalPrice ? overDescTotalPrice : halfTotalPrice) + "元\n"
+            + "总计：" + (int)(Math.min(overDescTotalPrice, halfTotalPrice)) + "元\n"
             + "===================================";
     return discountWay + printTotalPrice;
   }
